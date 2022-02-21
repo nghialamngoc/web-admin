@@ -77,9 +77,9 @@ export default function NavBar({ children }: any) {
             </div>
           </div>
         </aside>
-        <section role="main" className="content-body content-body-modern">
+      
           <Outlet></Outlet>
-        </section>
+       
       </div>
     </>
   );
