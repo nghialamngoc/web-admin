@@ -66,6 +66,12 @@ export default function NavBar({ children }: any) {
                       <span>About</span>
                     </Link>
                   </li>
+                  <li>
+                    <Link to="product" className="nav-link">
+                      <i className="bx bx-envelope" aria-hidden="true"></i>
+                      <span>Product</span>
+                    </Link>
+                  </li>
                 </ul>
               </nav>
             </div>
