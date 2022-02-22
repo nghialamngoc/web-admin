@@ -54,7 +54,7 @@ export default function NavBar({ children }: any) {
               <nav id="menu" className="nav-main" role="navigation">
                 <ul className="nav nav-main">
                   <li>
-                    <Link to="dashboard" className="nav-link">
+                    <Link to="/" className="nav-link">
                       <i className="bx bx-home-alt" aria-hidden="true"></i>
                       <span>Dashboard</span>
                     </Link>

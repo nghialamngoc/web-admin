@@ -17,6 +17,7 @@ export default function Gateway({ path, component }: any) {
 
   const getUser = useCallback(() => {
     try {    
+     
       dispatch(fetchUser())      
         .then(unwrapResult)
         .then(() => {

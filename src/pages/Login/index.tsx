@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { FC } from "react";
 import { IAboutProps } from "../../interfaces/about";
 import {setUser} from "../../store/modules/auth"
+import { useToast } from '@chakra-ui/react'
 
 export default function LoginPage(props:any) {
+  const toast = useToast()
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPass] = useState("");
@@ -36,11 +38,15 @@ export default function LoginPage(props:any) {
 
         navigate(PATH_DASHBOARD);
       }
-      
-      
 
-     
     } catch (err) {
+      toast({
+        title: 'Chú ý !',
+        description: "Mật khẩu không đúng",
+        status: 'error',
+        duration:2000,
+        isClosable: true,
+      })
       console.log(err);
     }
   };

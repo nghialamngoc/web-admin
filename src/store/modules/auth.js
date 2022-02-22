@@ -7,16 +7,15 @@ import { getToken } from "helpers/auth";
 // Async thunk
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
-  async (_, { getState }) => {
-   
+  async (_, { getState }) => {   
     if (getToken()) {    
+    
       const { auth } = getState();     
       
-      if (auth.user && auth.user.email) {
+      if (auth.user && auth.user.email) {      
        
         return auth.user;
-      }
-     
+      }    
 
       return await getProfile();
     }
