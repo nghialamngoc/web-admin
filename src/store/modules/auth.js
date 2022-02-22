@@ -8,12 +8,15 @@ import { getToken } from "helpers/auth";
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
   async (_, { getState }) => {
-    if (getToken()) {
-      const { auth } = getState();
-
+   
+    if (getToken()) {    
+      const { auth } = getState();     
+      
       if (auth.user && auth.user.email) {
+       
         return auth.user;
       }
+     
 
       return await getProfile();
     }
@@ -28,7 +31,8 @@ export const auth = createSlice({
     user: {},
   },
   reducers: {
-    setUser: (state, { payload }) => {
+    setUser: (state, { payload }) => {     
+      
       state.user = payload;
     },
   },
@@ -38,5 +42,7 @@ export const auth = createSlice({
     },
   },
 });
+
+export const { setUser} = auth.actions
 
 export default auth.reducer;

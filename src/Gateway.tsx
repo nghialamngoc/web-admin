@@ -16,15 +16,20 @@ export default function Gateway({ path, component }: any) {
   const [fetched, setFetched] = useState(user && user.email);
 
   const getUser = useCallback(() => {
-    try {
-      dispatch(fetchUser())
+    try {    
+      dispatch(fetchUser())      
         .then(unwrapResult)
         .then(() => {
+         
           if (isMounted.current) {
+           
             setFetched(true);
+           
           }
+         
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log("gateway error: ", err);
           navigate("/login");
         });
     } catch (err) {}

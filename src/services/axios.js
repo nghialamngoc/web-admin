@@ -7,17 +7,25 @@ const instance = axios.create();
 
 // Add a request interceptor
 instance.interceptors.request.use((config) => {
-  // Mocking test json api
+
+  const DOMAIN = "https://happyhow.me";
+  
+  if (config.url && config.url.indexOf('http') === -1) {
+    config.url = `${DOMAIN}${config.url}`;
+}
+
+ /* // Mocking test json api
   if (startsWith(config.url, "/static/api/")) {
     // Set prefix for api request
-    config.baseURL = process.env.PUBLIC_URL;
+    // config.baseURL = process.env.BASE_API;
+    config.baseURL = "https://thy.tvtsolutions.com";
     // Change body data to query params
     if (config.data && typeof config.data === "object") {
       config.params = { ...config.params, ...config.data };
     }
     // Change method to get
     config.method = "GET";
-  }
+  }*/
 
   // Token
   const token = getToken();

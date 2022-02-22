@@ -1,19 +1,51 @@
 import { login } from "api/auth";
 import { PATH_DASHBOARD } from "constants/paths";
 import { useNavigate } from "react-router";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
-export default function LoginPage() {
+import { FC } from "react";
+import { IAboutProps } from "../../interfaces/about";
+import {setUser} from "../../store/modules/auth"
+
+export default function LoginPage(props:any) {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPass] = useState("");
+  const  dispatch = useDispatch();
+  
+ 
+  
 
   const onLogin = async () => {   
-    try {
-      alert('login');
-      await login();
-      navigate(PATH_DASHBOARD);
+    try {  
+
+      const request = {
+        "data":{
+           "username": username,
+           "password": password
+        },
+        "type":0
+     }; 
+
+      const rs = await login(request);      
+     
+      if (rs.userInfo.enable){
+        const user = rs.userInfo;
+        dispatch(setUser(user))  
+
+        navigate(PATH_DASHBOARD);
+      }
+      
+      
+
+     
     } catch (err) {
       console.log(err);
     }
   };
+  
+  
 
   return (
     <>
@@ -32,7 +64,7 @@ export default function LoginPage() {
                 <div className="form-group mb-3">
                   <label>Username</label>
                   <div className="input-group">
-                    <input name="username" type="text" className="form-control form-control-lg" />
+                    <input value={username} onChange={e=>setUsername(e.target.value)}  name="username" type="text" className="form-control form-control-lg" />
                     <span className="input-group-text">
                       <i className="bx bx-user text-4" />
                     </span>
@@ -44,7 +76,7 @@ export default function LoginPage() {
                     <a href="pages-recover-password.html" className="float-end">Lost Password?</a>
                   </div>
                   <div className="input-group">
-                    <input name="pwd" type="password" className="form-control form-control-lg" />
+                    <input value={password} onChange={e=>setPass(e.target.value)} name="pwd" type="password" className="form-control form-control-lg" />
                     <span className="input-group-text">
                       <i className="bx bx-lock text-4" />
                     </span>

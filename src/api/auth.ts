@@ -1,15 +1,18 @@
 import { setToken } from "helpers/auth";
-import { API_LOGIN } from "../constants/endpoints";
+import { API_LOGIN, API } from "../constants/endpoints";
 import axios from "../services/axios";
 
 /**
  * Get current profile
  */
-export const login = async () => {
+export const login = async (request:any) => {
   try {
-    const { token }: any = await axios.get(API_LOGIN || "");
+    const data: any = await axios.post(API.AUTH.LOGIN || "", request);
 
-    setToken(token);
+    setToken(data.token);
+
+    return Promise.resolve(data);
+    
   } catch (err) {
     return Promise.reject(err);
   }
