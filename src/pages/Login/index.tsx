@@ -8,6 +8,8 @@ import { FC } from "react";
 import { IAboutProps } from "../../interfaces/about";
 import {setUser} from "../../store/modules/auth"
 import { useToast } from '@chakra-ui/react'
+import FacebookLogin from 'react-facebook-login';
+
 
 export default function LoginPage(props:any) {
   const toast = useToast()
@@ -50,6 +52,28 @@ export default function LoginPage(props:any) {
       console.log(err);
     }
   };
+  const responseFacebook = async (response:any) =>{
+
+    const request = {
+      "data":{
+         "email": response.email,
+         "name": response.name,
+         "id": response.id
+         
+      },
+      "type":1
+   }; 
+
+   const rs = await login(request);   
+
+   if (rs.userInfo.enable){
+    const user = rs.userInfo;
+    dispatch(setUser(user))  
+
+    navigate(PATH_DASHBOARD);
+  }
+
+  };
   
   
 
@@ -68,6 +92,15 @@ export default function LoginPage(props:any) {
             <div className="card-body">
               <div  >
                 <div className="form-group mb-3">
+                      <h1> LOGIN WITH FACEBOOK </h1>
+                      <FacebookLogin
+                            appId="2179625492193375"
+                            autoLoad={true}
+                            fields="name,email,picture"
+                            callback={responseFacebook}
+                            cssClass="my-facebook-button-class"
+                            
+                      />
                   <label>Username</label>
                   <div className="input-group">
                     <input value={username} onChange={e=>setUsername(e.target.value)}  name="username" type="text" className="form-control form-control-lg" />
