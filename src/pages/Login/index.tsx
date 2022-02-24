@@ -92,15 +92,8 @@ export default function LoginPage(props:any) {
             <div className="card-body">
               <div  >
                 <div className="form-group mb-3">
-                      <h1> LOGIN WITH FACEBOOK </h1>
-                      <FacebookLogin
-                            appId="2179625492193375"
-                            autoLoad={true}
-                            fields="name,email,picture"
-                            callback={responseFacebook}
-                            cssClass="my-facebook-button-class"
-                            
-                      />
+                     
+                     
                   <label>Username</label>
                   <div className="input-group">
                     <input value={username} onChange={e=>setUsername(e.target.value)}  name="username" type="text" className="form-control form-control-lg" />
@@ -136,7 +129,20 @@ export default function LoginPage(props:any) {
                   <span>or</span>
                 </span>
                 <div className="mb-1 text-center">
-                  <a className="btn btn-facebook mb-3 ms-1 me-1" href="#">Connect with <i className="fab fa-facebook-f" /></a>
+                
+                          <a className="btn btn-facebook mb-3 ms-1 me-1" href="#">
+                              <FacebookLogin
+                                appId="2179625492193375"
+                                autoLoad={true}
+                                fields="name,email,picture"
+                                callback={responseFacebook}
+                                cssClass="my-facebook-button-class"                            
+                                >
+                                Connect with <i className="fab fa-facebook-f" />
+                                </FacebookLogin>
+                          </a>
+
+                  
                   <a className="btn btn-twitter mb-3 ms-1 me-1" href="#">Connect with <i className="fab fa-twitter" /></a>
                 </div>
                 <p className="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>
