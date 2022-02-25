@@ -21,3 +21,17 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.mp4
+*.html
+
+!index.html
+*.map
+*.min.js
+*.zip
+*.min.css
+*.svg
+*.scss
+*.png
+*.jpg
+*.less
+*.tmpl
