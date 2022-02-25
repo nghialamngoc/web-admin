@@ -28,16 +28,19 @@ export const auth = createSlice({
   name: "auth",
   initialState: {
     user: {},
-    permission: {}
+    auth: {
+      permissions:[],
+      menus: []
+    }
   },
   reducers: {
     setUser: (state, { payload }) => {     
       
       state.user = payload;
     },
-    setUser: (state, { payload }) => {     
+    setPermission: (state, { payload }) => {     
       
-      state.permission = payload;
+      state.auth = payload;
     },
   },
   extraReducers: {

@@ -85,14 +85,14 @@ export default function LoginPage(props : any) {
     const navigateSuccess = (rs : any) => {
         if (rs.userInfo.enable) {
             const user = rs.userInfo;
-            const permission: any = {};
+            const auth: any = {};
 
-            permission.menu = rs.menu;
-            permission.permission = rs.permission;
+            auth.menus = rs.menu;
+            auth.permissions = rs.permission;
 
-
+            console.log("AUTH TRUOC KHI SET: ", auth);
             dispatch(setUser(user));
-            dispatch(setPermission(permission));
+            dispatch(setPermission(auth));
 
             navigate(PATH_DASHBOARD);
         }

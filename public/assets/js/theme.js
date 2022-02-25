@@ -1,4 +1,5 @@
-/*
+$(document).ready(function(){
+	/*
 Name: 			Theme Base
 Written by: 	Okler Themes - (http://www.okler.net)
 Theme Version: 	4.0.0
@@ -5247,3 +5248,4 @@ window.theme.fn = {
 	}
 
 }).apply(this, [window.theme, jQuery]);
+});
