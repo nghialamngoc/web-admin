@@ -8,7 +8,7 @@ const instance = axios.create();
 // Add a request interceptor
 instance.interceptors.request.use((config) => {
 
-  const DOMAIN = "https://happyhow.me";
+  const DOMAIN = "https://thy.tvtsolutions.com";
   
   if (config.url && config.url.indexOf('http') === -1) {
     config.url = `${DOMAIN}${config.url}`;

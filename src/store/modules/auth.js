@@ -28,11 +28,16 @@ export const auth = createSlice({
   name: "auth",
   initialState: {
     user: {},
+    permission: {}
   },
   reducers: {
     setUser: (state, { payload }) => {     
       
       state.user = payload;
+    },
+    setUser: (state, { payload }) => {     
+      
+      state.permission = payload;
     },
   },
   extraReducers: {
@@ -42,6 +47,7 @@ export const auth = createSlice({
   },
 });
 
-export const { setUser} = auth.actions
+export const { setUser, setPermission} = auth.actions
+
 
 export default auth.reducer;
