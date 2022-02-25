@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IProductProps } from "../../interfaces/product";
+import IProductProps from "../../interfaces/product";
 
 const ProductPage: FC<IProductProps> = ({ title }) => {
   return (

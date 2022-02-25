@@ -3,5 +3,6 @@ export const PATH_ABOUT = "/about";
 
 export const PATH_PRODUCT = {
     LIST: "/product",
-    CU:"/cu"
+    CU:"/cu",
+    DETAIL: "/product/management/cu/:id"
 };
