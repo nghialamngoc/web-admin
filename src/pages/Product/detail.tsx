@@ -1,17 +1,34 @@
 import { FC } from "react";
 
 import { IProductDetailProps } from "interfaces/product";
+import React, {useState, useEffect} from 'react';
+import { StatHelpText } from "@chakra-ui/react";
 
 const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
+  
 
-  const addSelectedAtt = ()=>{
-    alert('add selected Att');
+  const [countGroupAtt, setCountGroupAtt] = useState(0);
+  const [classAtt1, setClassAtt1] = useState("d-none");
+  const [classAtt2, setClassAtt2] = useState("d-none");
+  const [classBtnAddAtt, setClassBtnAddAtt] = useState("");  
+
+  const addSelectedAtt = ()=>{ 
+    setCountGroupAtt(countGroupAtt + 1);  
+    
   }
+
+  useEffect(()=>{
+    if (countGroupAtt == 0) return;
+    countGroupAtt == 1?setClassAtt1(""):setClassAtt2("");  
+    if(countGroupAtt >= 2) setClassBtnAddAtt("d-none"); 
+
+   });
+   
 
   return (
     <section role="main" className="content-body content-body-modern mt-0">
     <header className="page-header page-header-left-inline-breadcrumb">
-      <h2 className="font-weight-bold text-6">Product Name</h2>
+      <h2 className="font-weight-bold text-6">Product Name: {title}</h2>
       <div className="right-wrapper">
         <ol className="breadcrumbs">
           <li><span>Home</span></li>
@@ -28,11 +45,7 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
           <section className="card card-modern card-big-info">
             <div className="card-body">
               <div className="row">
-                <div className="col-lg-2-5 col-xl-1-5">
-                  <i className="card-big-info-icon bx bx-box" />
-                  <h2 className="card-big-info-title">General Info</h2>
-                  <p className="card-big-info-desc">Add here the product description with all details and necessary information.</p>
-                </div>
+                
                 <div className="col-lg-3-5 col-xl-4-5">
                   <div className="form-group row align-items-center pb-3">
                     <label className="col-lg-5 col-xl-12 control-label text-lg-left mb-2">Tên sản phẩm</label>
@@ -65,11 +78,7 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
           <section className="card card-modern card-big-info">
             <div className="card-body">
               <div className="row">
-                <div className="col-lg-2-5 col-xl-1-5">
-                  <i className="card-big-info-icon bx bx-camera" />
-                  <h2 className="card-big-info-title">Product Image</h2>
-                  <p className="card-big-info-desc">Upload your Product image. You can add multiple images</p>
-                </div>
+                
                 <div className="col-lg-3-5 col-xl-4-5">
                   <div className="form-group row align-items-center">
                   <label className="col-lg-5 col-xl-12 control-label text-lg-left pt-2 mt-1 mb-2">Hình ảnh</label>
@@ -107,46 +116,97 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
           <section className="card card-modern card-big-info">
             <div className="card-body">
               <div className="tabs-modern row" style={{minHeight: '490px'}}>
-                <div className="col-lg-2-5 col-xl-1-5">
-                  <div className="nav flex-column tabs" id="tab" role="tablist" aria-orientation="vertical">
-                    <a className="nav-link active" id="price-tab" data-bs-toggle="pill" data-bs-target="#price" role="tab" aria-controls="price" aria-selected="true">Price</a>
-                    <a className="nav-link" id="inventory-tab" data-bs-toggle="pill" data-bs-target="#inventory" role="tab" aria-controls="inventory" aria-selected="false">Inventory</a>
-                    <a className="nav-link" id="shipping-tab" data-bs-toggle="pill" data-bs-target="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</a>
-                    <a className="nav-link" id="linked-products-tab" data-bs-toggle="pill" data-bs-target="#linked-products" role="tab" aria-controls="linked-products" aria-selected="false">Linked Products</a>
-                    <a className="nav-link" id="attributes-tab" data-bs-toggle="pill" data-bs-target="#attributes" role="tab" aria-controls="attributes">Attributes</a>
-                    <a className="nav-link" id="advanced-tab" data-bs-toggle="pill" data-bs-target="#advanced" role="tab" aria-controls="advanced">Advanced</a>
-                  </div>
-                </div>
+               
                 <div className="col-lg-3-5 col-xl-4-5">
                   <div className="tab-content" id="tabContent">
                     <div className="tab-pane fade show active" id="price" role="tabpanel" aria-labelledby="price-tab">
                       <div className="form-group row align-items-center pb-3">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Mã sản phẩm</label>
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0">Mã sản phẩm</label>
                         <div className="col-lg-7 col-xl-6">
                           <input type="text" className="form-control form-control-modern" name="regularPrice" defaultValue="" required />
                         </div>
-                      </div>
-                      <div className="form-group row align-items-center">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0">Thêm nhóm phân loại</label>
+                      </div>                    
+
+                       <div className={"form-group row align-items-center " + classAtt1} >
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0 "  >Nhóm phân loại 1</label>
                         <div className="col-lg-7 col-xl-6">
-                          <button onClick={addSelectedAtt} className="repeater-add poloman-button poloman-button--normal"  type="button">
-                              
-                              <span>
-                                  <i className="fa fa-plus-circle poloman-icon"></i> Thêm
-                              </span>
-                            
-                          </button>
-                         
-                          {/* <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" /> */}
+                              <div className="row mb-4">
+                                  <label className="col-4 d-flex align-items-center">Tên nhóm phân loại</label>                            
+                                  <div className="col-8">
+
+                                  <select className="form-control form-control-modern" name="stockStatus">
+                                      <option value="percentage" selected>Percentage Discount</option>
+                                      <option value="fixed-cart">Fixed Cart Discount</option>
+                                      <option value="fixed-product">Fixed Product Discount</option>
+                                  </select>
+
+                                </div>                           
+                            </div>
+
+                            <div className="row">
+                                  <label className="col-4 d-flex align-items-center">Phân loại hàng</label>                            
+
+                                  <div className="col-8">
+                                          <select className="form-control form-control-modern" name="stockStatus">
+                                                <option value="percentage" selected>Percentage Discount</option>
+                                                <option value="fixed-cart">Fixed Cart Discount</option>
+                                                <option value="fixed-product">Fixed Product Discount</option>
+                                          </select>
+                                  </div>                           
+                            </div>
+
+               
+                          
                         </div>
                       </div>
 
-                       <div className="form-group row align-items-center">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0">Thêm nhóm phân loại</label>
+                      <div className={"form-group row align-items-center " + classAtt2} >
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0 "  >Nhóm phân loại 2</label>
                         <div className="col-lg-7 col-xl-6">
-                          <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
+                              <div className="row mb-4">
+                                  <label className="col-4 d-flex align-items-center">Tên nhóm phân loại</label>                            
+                                  <div className="col-8">
+
+                                  <select className="form-control form-control-modern" name="stockStatus">
+                                      <option value="percentage" selected>Percentage Discount</option>
+                                      <option value="fixed-cart">Fixed Cart Discount</option>
+                                      <option value="fixed-product">Fixed Product Discount</option>
+                                  </select>
+
+                                </div>                           
+                            </div>
+
+                            <div className="row">
+                                  <label className="col-4 d-flex align-items-center">Phân loại hàng</label>                            
+
+                                  <div className="col-8">
+                                          <select className="form-control form-control-modern" name="stockStatus">
+                                                <option value="percentage" selected>Percentage Discount</option>
+                                                <option value="fixed-cart">Fixed Cart Discount</option>
+                                                <option value="fixed-product">Fixed Product Discount</option>
+                                          </select>
+                                  </div>                           
+                            </div>
+
+               
+                          
                         </div>
                       </div>
+
+                      <div className="form-group row align-items-center">
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0 ">Thêm nhóm phân loại</label>
+                        <div className="col-lg-7 col-xl-6">
+                          <button onClick={addSelectedAtt} className={"repeater-add poloman-button poloman-button--normal " + classBtnAddAtt }  type="button">
+                              
+                              <span>
+                                  <i className="fa fa-plus-circle poloman-icon "></i> Thêm
+                              </span>
+                            
+                          </button>                      
+                        </div>
+                        
+                      </div>
+
                       <div className="form-group row align-items-center">
                           <div className="col-3">
                               <label className="col-lg-12 col-xl-12 control-label text-lg-start mb-2">Giá sản phẩm</label>
@@ -332,6 +392,11 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
           </section>
         </div>
       </div>
+
+      {/* todo: ten nhom phan loai---------- */}
+      
+      {/* end: nhom phan loai--------------- */}
+
       <div className="row action-buttons">
         <div className="col-12 col-md-auto">
           <button type="submit" className="submit-button btn btn-primary btn-px-4 py-3 d-flex align-items-center font-weight-semibold line-height-1" data-loading-text="Loading...">
