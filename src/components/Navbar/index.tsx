@@ -940,17 +940,17 @@ export default function NavBar({ children }: any) {
                       </a>
                       <ul className="nav nav-children">
                         <li>
-                          <a className="nav-link" href="ecommerce-dashboard.html">
+                          <a className="nav-link" href="/product" target="_self">
                             - Quản lý sản phẩm
                           </a>
                         </li>
                         <li className="nav-active">
-                          <a className="nav-link" href="ecommerce-products-list.html">
+                          <a className="nav-link" href="ecommerce-products-list.html" target="_self">
                             - Người mẫu
                           </a>
                         </li>
                         <li>
-                          <a className="nav-link" href="ecommerce-products-form.html">
+                          <a className="nav-link" href="ecommerce-products-form.html" target="_self">
                             - Nhóm sản phẩm
                           </a>
                         </li>                    

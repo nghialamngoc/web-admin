@@ -30,17 +30,25 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
                 </div>
                 <div className="col-lg-3-5 col-xl-4-5">
                   <div className="form-group row align-items-center pb-3">
-                    <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Product Name</label>
+                    <label className="col-lg-5 col-xl-12 control-label text-lg-left mb-2">Tên sản phẩm</label>
                     <div className="col-lg-7 col-xl-6">
                       <input type="text" className="form-control form-control-modern" name="productName" defaultValue="" required />
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label className="col-lg-5 col-xl-3 control-label text-lg-end pt-2 mt-1 mb-0">Product Description</label>
+                    <label className="col-lg-5 col-xl-12 control-label text-lg-left pt-2 mt-1 mb-2">Mô tả</label>
                     <div className="col-lg-7 col-xl-6">
                       <textarea className="form-control form-control-modern" name="productDescription" rows={6} defaultValue={""} />
                     </div>
                   </div>
+
+                  <div className="form-group row">
+                    <label className="col-lg-5 col-xl-12 control-label text-lg-left pt-2 mt-1 mb-2">Trích dẫn</label>
+                    <div className="col-lg-7 col-xl-6">
+                      <textarea className="form-control form-control-modern" name="productDescription" rows={6} defaultValue={""} />
+                    </div>
+                  </div>                 
+
                 </div>
               </div>
             </div>
@@ -59,6 +67,21 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
                 </div>
                 <div className="col-lg-3-5 col-xl-4-5">
                   <div className="form-group row align-items-center">
+                  <label className="col-lg-5 col-xl-12 control-label text-lg-left pt-2 mt-1 mb-2">Hình ảnh</label>
+                    <div className="col">
+                      <div id="dropzone-form-image" className="dropzone-modern dz-square">
+                        <span className="dropzone-upload-message text-center">
+                          <i className="bx bxs-cloud-upload" />
+                          <b className="text-color-primary">Drag/Upload</b> your images here.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                 <div className="col-lg-3-5 col-xl-4-5">
+                  <div className="form-group row align-items-center">
+                  <label className="col-lg-5 col-xl-12 control-label text-lg-left pt-2 mt-1 mb-2">Hình ảnh</label>
                     <div className="col">
                       <div id="dropzone-form-image" className="dropzone-modern dz-square">
                         <span className="dropzone-upload-message text-center">
@@ -93,13 +116,20 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
                   <div className="tab-content" id="tabContent">
                     <div className="tab-pane fade show active" id="price" role="tabpanel" aria-labelledby="price-tab">
                       <div className="form-group row align-items-center pb-3">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Regular Price ($)</label>
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Mã sản phẩm</label>
                         <div className="col-lg-7 col-xl-6">
                           <input type="text" className="form-control form-control-modern" name="regularPrice" defaultValue="" required />
                         </div>
                       </div>
                       <div className="form-group row align-items-center">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Sale Price ($)</label>
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Thêm nhóm phân loại</label>
+                        <div className="col-lg-7 col-xl-6">
+                          <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
+                        </div>
+                      </div>
+
+                       <div className="form-group row align-items-center">
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Thêm nhóm phân loại</label>
                         <div className="col-lg-7 col-xl-6">
                           <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
                         </div>
@@ -107,7 +137,7 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
                     </div>
                     <div className="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
                       <div className="form-group row align-items-center pb-3">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">SKU</label>
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Giá sản phẩm</label>
                         <div className="col-lg-7 col-xl-6">
                           <input type="text" className="form-control form-control-modern" name="sku" defaultValue="" required />
                         </div>
