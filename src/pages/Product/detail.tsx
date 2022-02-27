@@ -3,6 +3,11 @@ import { FC } from "react";
 import { IProductDetailProps } from "interfaces/product";
 
 const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
+
+  const addSelectedAtt = ()=>{
+    alert('add selected Att');
+  }
+
   return (
     <section role="main" className="content-body content-body-modern mt-0">
     <header className="page-header page-header-left-inline-breadcrumb">
@@ -122,17 +127,47 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
                         </div>
                       </div>
                       <div className="form-group row align-items-center">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Thêm nhóm phân loại</label>
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0">Thêm nhóm phân loại</label>
                         <div className="col-lg-7 col-xl-6">
-                          <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
+                          <button onClick={addSelectedAtt} className="repeater-add poloman-button poloman-button--normal"  type="button">
+                              
+                              <span>
+                                  <i className="fa fa-plus-circle poloman-icon"></i> Thêm
+                              </span>
+                            
+                          </button>
+                         
+                          {/* <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" /> */}
                         </div>
                       </div>
 
                        <div className="form-group row align-items-center">
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Thêm nhóm phân loại</label>
+                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0">Thêm nhóm phân loại</label>
                         <div className="col-lg-7 col-xl-6">
                           <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
                         </div>
+                      </div>
+                      <div className="form-group row align-items-center">
+                          <div className="col-3">
+                              <label className="col-lg-12 col-xl-12 control-label text-lg-start mb-2">Giá sản phẩm</label>
+                              <div className="col-lg-12 col-xl-12">
+                                <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
+                              </div>
+                          </div>
+
+                          <div className="col-3">
+                              <label className="col-lg-12 col-xl-12 control-label text-lg-start mb-2">Giá giảm sản phẩm</label>
+                              <div className="col-lg-12 col-xl-12">
+                                <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
+                              </div>
+                          </div>
+
+                          <div className="col-3">
+                              <label className="col-lg-12 col-xl-12 control-label text-lg-start mb-2">Có thể bán</label>
+                              <div className="col-lg-12 col-xl-12">
+                                <input type="text" className="form-control form-control-modern" name="salePrice" defaultValue="" />
+                              </div>
+                          </div>
                       </div>
                     </div>
                     <div className="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
