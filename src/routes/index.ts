@@ -2,7 +2,7 @@ import { PATH_ABOUT, PATH_DASHBOARD, PATH_PRODUCT } from "constants/paths";
 import AboutPage from "pages/About";
 import HomePage from "pages/Home";
 import ProductPage from "pages/Product";
-import ProductDetailPage from "pages/Product/detail";
+import ProductCUPage from "pages/Product/cu";
 
 const routes = [
   {
@@ -21,8 +21,8 @@ const routes = [
     guard: true,
   },
   {
-    path: PATH_PRODUCT.DETAIL,
-    component: ProductDetailPage,
+    path: PATH_PRODUCT.CU,
+    component: ProductCUPage,
     guard: true,
   },
 ];

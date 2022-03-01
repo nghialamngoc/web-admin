@@ -1,5 +1,6 @@
 import { FC } from "react";
 import IProductProps from "../../interfaces/product";
+import { Link } from "react-router-dom";
 
 const ProductPage: FC<IProductProps> = ({ title }) => {
   return (
@@ -33,7 +34,9 @@ const ProductPage: FC<IProductProps> = ({ title }) => {
         </div>
         <div className="row justify-content-center justify-content-sm-between pt-2">
           <div className="col-sm-auto text-center mb-4 mb-sm-0 mt-2 mt-sm-0">
-            <a href="ecommerce-products-form.html" className="ecommerce-sidebar-link btn btn-primary btn-md font-weight-semibold btn-py-2 px-4" data-ajax-url="ajax/ajax-products-form-empty.html">+ Add Product</a>
+            <Link  to="/product/management/cu" className="ecommerce-sidebar-link btn btn-primary btn-md font-weight-semibold btn-py-2 px-4">                       
+                      Add Product
+            </Link>            
           </div>
           <div className="col-sm-auto">
             <form action="ecommerce-products-list.html" className="search search-style-1 search-style-1-light mx-auto" method="GET">

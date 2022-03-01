@@ -2,25 +2,381 @@ import { FC } from "react";
 
 import { IProductDetailProps } from "interfaces/product";
 import React, {useState, useEffect} from 'react';
-import { StatHelpText } from "@chakra-ui/react";
+import { SkeletonCircle, StatHelpText } from "@chakra-ui/react";
+import {Attribute, SelectedAttribute} from "interfaces/product";
+// import Select from 'react-select';
+import Multiselect from 'multiselect-react-dropdown';
 
-const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
+
+const ProductCUPage: FC<IProductDetailProps> = ({ title }) => {
   
+  // todo: Variable-----------------------
+  const defaultSelectedAtt = {} as Attribute;
 
+  /**State------------------------------- */
   const [countGroupAtt, setCountGroupAtt] = useState(0);
   const [classAtt1, setClassAtt1] = useState("d-none");
   const [classAtt2, setClassAtt2] = useState("d-none");
+  const [classAtt, setClassAtt] = useState<Array<string>>(["d-none", "d-none"])
   const [classBtnAddAtt, setClassBtnAddAtt] = useState("");  
+  const [atributeList, setAttributeList] = useState<Array<Array<Attribute>>>([]);
+  const [childAttList, setChildAttList] = useState<Array<any>>([])
 
-  const addSelectedAtt = ()=>{ 
-    setCountGroupAtt(countGroupAtt + 1);  
+  const[test, setTest] = useState<Array<any>>([])
+  const[options, setOptions] = useState([{name: 'Option 1️⃣', id: 1},{name: 'Option 2️⃣', id: 2}]);
+
+  /**Variables------------------------- */
+  
+
+
+  // !end: Variable---------------------
+  
+ 
+
+  // todo: Set default Selected Att----------------------------
+  const [selectedAtt, setSelectedAtt] = useState <Array<any>>([[], []]);   
+  // const tempSelectedAtt = [];
+  // tempSelectedAtt.push(defaultSelectedAtt, defaultSelectedAtt);
+  // setSelectedAtt(tempSelectedAtt)
+
+
+  
+  const orgAttributeList = [
+    {
+       "id":"1469598129476079617",
+       "value":"BE",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/be_1469598121922138112.png",
+       "code":"BE"
+    },
+    {
+       "id":"1465575707814924289",
+       "value":"CARO NÂU",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/caro-nau_1467128337947168768.png",
+       "code":"CANA"
+    },
+    {
+       "id":"1465569140168200193",
+       "value":"CARO XANH",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/caro-xanh_1467128691531190272.png",
+       "code":"CAXA"
+    },
+    {
+       "id":"1465562053329555457",
+       "value":"Cafe",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/cafe_1467128884519505920.png",
+       "code":"CA"
+    },
+    {
+       "id":"1465578115051819009",
+       "value":"Hồng",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/hong_1467127710965829632.png",
+       "code":"HO"
+    },
+    {
+       "id":"1433405122280427522",
+       "value":"L",
+       "parent_id":"1433405122280427520",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/den.png",
+       "code":"L"
+    },
+    {
+       "id":"1433405122280427523",
+       "value":"M",
+       "parent_id":"1433405122280427520",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/den.png",
+       "code":"M"
+    },
+    {
+       "id":"1433404879375699968",
+       "value":"Màu sắc",
+       "parent_id":"0",
+       "url_media":"",
+       "code":""
+    },
+    {
+       "id":"1465575983917568001",
+       "value":"Nâu",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/nau_1473131893221232640.png",
+       "code":"NAU"
+    },
+    {
+       "id":"1465579873195003905",
+       "value":"RÊU",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/reu_1474227035403456512.png",
+       "code":"REU"
+    },
+    {
+       "id":"1433405122280427520",
+       "value":"Size",
+       "parent_id":"0",
+       "url_media":"",
+       "code":""
+    },
+    {
+       "id":"1465550472461946881",
+       "value":"Trắng",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/trang_1467107723110780928.png",
+       "code":"TR"
+    },
+    {
+       "id":"1465577145328734209",
+       "value":"XANH LÁ",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xanh-la_1473125246000173056.png",
+       "code":"XALA"
+    },
+    {
+       "id":"1465579873195003907",
+       "value":"XANH NGỌC",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xanh-ngoc_1467107626612428800.png",
+       "code":"XANG"
+    },
+    {
+       "id":"1433405122280427521",
+       "value":"XL",
+       "parent_id":"1433405122280427520",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/do.png",
+       "code":"XL"
+    },
+    {
+       "id":"1440944377156341761",
+       "value":"XXL",
+       "parent_id":"1433405122280427520",
+       "url_media":"",
+       "code":"XXL"
+    },
+    {
+       "id":"1476017292612472833",
+       "value":"Xanh Rêu",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xanh-reu_1476018105518919680.png",
+       "code":"XARE"
+    },
+    {
+       "id":"1469598481688563713",
+       "value":"Xanh biển",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xanh-bien_1469598476655398912.png",
+       "code":"XABI"
+    },
+    {
+       "id":"1465562053329555459",
+       "value":"Xanh ghi",
+       "parent_id":"1433404879375699968",
+       "url_media":"",
+       "code":"XAGH"
+    },
+    {
+       "id":"1465562053329555460",
+       "value":"Xanh ngọc",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/vo-dau_1467128802432782336.png",
+       "code":"VoDA"
+    },
+    {
+       "id":"1465564481525387265",
+       "value":"Xanh Đen",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xanh-den_1467128756622594048.png",
+       "code":"XA"
+    },
+    {
+       "id":"1465579873195003906",
+       "value":"XÁM XANH",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xam-xanh_1474227214047252480.png",
+       "code":"XAXA"
+    },
+    {
+       "id":"1465562053329555458",
+       "value":"Xám",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xam_1467128857109729280.png",
+       "code":"XAM"
+    },
+    {
+       "id":"1473609985005981697",
+       "value":"Xám xanh",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/xam-xanh_1474226732037836800.png",
+       "code":"XAXA"
+    },
+    {
+       "id":"1434108762674696193",
+       "value":"t1",
+       "parent_id":"1434108762674696192",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/do.png",
+       "code":"t1"
+    },
+    {
+       "id":"1434108762674696194",
+       "value":"t2",
+       "parent_id":"1434108762674696192",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/vang.png",
+       "code":"t2"
+    },
+    {
+       "id":"1434108762674696195",
+       "value":"t3",
+       "parent_id":"1434108762674696192",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/do.png",
+       "code":"t3"
+    },
+    {
+       "id":"1440552918787821569",
+       "value":"thuộc tính 1 eee",
+       "parent_id":"1440552918787821568",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/thuoc-tinh-1-eee.jpeg",
+       "code":"TH"
+    },
+    {
+       "id":"1440552918787821570",
+       "value":"thuộc tính 2",
+       "parent_id":"1440552918787821568",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/thuoc-tinh-2.jpeg",
+       "code":"TH"
+    },
+    {
+       "id":"1440553248242012161",
+       "value":"thuộc tính 3",
+       "parent_id":"1440552918787821568",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/thuoc-tinh-3.jpeg",
+       "code":"TH"
+    },
+    {
+       "id":"1465563676328071169",
+       "value":"Đen",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/den_1473131143975931904.png",
+       "code":"DEN"
+    },
+    {
+       "id":"1465581226675933185",
+       "value":"Đỏ",
+       "parent_id":"1433404879375699968",
+       "url_media":"https://happyhow.me/1111111111111111111/images/attr/desk/ba-trau_1467107481674059776.png",
+       "code":"BATR"
+    }
+ ];
+
+ // todo: compute data of parent Attribute List------------------
+ const paAttList:Array<any> = orgAttributeList.filter(e=>e.parent_id == "0");
+
+ defaultSelectedAtt.id = "0";
+ defaultSelectedAtt.value="Chọn nhóm phân loại";
+//  paAttList.push(defaultSelectedAtt);
+ const [parentAttList, setParentAttList] = useState <Array<Array<any>>>([paAttList, paAttList]);   
+ 
+
+  const addSelectedAtt = ()=>{     
+
     
+    // todo: Hiển thị group Att-----------
+    const stateClassAtt = classAtt;
+    const index = countGroupAtt;
+    stateClassAtt[index] = "";
+    setClassAtt(stateClassAtt);
+    setCountGroupAtt(countGroupAtt + 1);  
+
+    // todo: Add Group Att----------------------    
+
+    const tempAttributeList:any = JSON.parse(JSON.stringify(atributeList));
+    if (tempAttributeList.length<2){
+      const arr:Array<Attribute> = []
+      tempAttributeList.push(arr)
+      setAttributeList(tempAttributeList);   
+    }  
+    
+  }
+
+  const removeGroupAtt = (index:any)=>{
+    const stateClassAtt = classAtt;
+    if(index == 0){
+      setCountGroupAtt(0);
+      stateClassAtt[0] = "d-none";
+      stateClassAtt[1] = "d-none";
+    }else{ 
+      stateClassAtt[index] = "d-none";
+      setCountGroupAtt(1);      
+    } 
+    console.log("state att: ", stateClassAtt);
+
+    setClassBtnAddAtt("");
+    setClassAtt(stateClassAtt);
+     
   }
 
   useEffect(()=>{
     if (countGroupAtt == 0) return;
     countGroupAtt == 1?setClassAtt1(""):setClassAtt2("");  
-    if(countGroupAtt >= 2) setClassBtnAddAtt("d-none"); 
+    countGroupAtt>=2? setClassBtnAddAtt("d-none"):setClassBtnAddAtt("");    
+
+   });
+
+   const changeAtt = (event:any, index:any)=>{     
+
+    // todo: Get Value id of att-----------
+     let value = "";
+     let name = "";
+     if (typeof event == "string") {
+       value = event;
+     }else{
+        value = event.target.value;
+        const idx = event.nativeEvent.target.selectedIndex;
+        name = event.nativeEvent.target[idx].text;    
+     }
+
+    //  todo: Initialize variable of child Att--------
+    const stateChildAttList = childAttList;
+    const childAtt = {
+      att_id:value,
+      name:name,
+      childs:[]
+    }
+    childAttList.push(childAtt);
+    setChildAttList(childAttList);
+
+     const tempAttributeList:any = JSON.parse(JSON.stringify(atributeList));
+      const arr = orgAttributeList.filter(e=>e.parent_id == value) as Array<Attribute>;             
+      
+      tempAttributeList[index] = arr;
+     
+     setAttributeList(tempAttributeList);    
+
+    // todo: Set Selected Att---------------
+      const tempSeletecAtt = selectedAtt;
+      tempSeletecAtt[index] = value;
+      setSelectedAtt(tempSeletecAtt);  
+
+      let tmpParentAttList = paAttList;
+      const stateParentAttList = parentAttList;
+
+      // todo: Check group Att duplicate----------
+      if (index == 0){
+        const restIndex = 1 - index;
+        const idx = tmpParentAttList.findIndex((e:any)=>e.id == value);
+        tmpParentAttList.splice(idx, 1);
+        stateParentAttList[restIndex] = tmpParentAttList;
+        
+        setParentAttList(stateParentAttList);
+      }
+     
+      
+      // todo: Set Parrent Att------------------
+      
+   }
+
+   useEffect(()=>{
+     console.log("attribute list: ", atributeList); 
 
    });
    
@@ -127,71 +483,69 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
                         </div>
                       </div>                    
 
-                       <div className={"form-group row align-items-center " + classAtt1} >
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0 "  >Nhóm phân loại 1</label>
-                        <div className="col-lg-7 col-xl-6">
-                              <div className="row mb-4">
-                                  <label className="col-4 d-flex align-items-center">Tên nhóm phân loại</label>                            
-                                  <div className="col-8">
+                      {atributeList.map((item:any,index:any)=>(
+                         <div key={index} className={"position-relative form-group row align-items-center " + classAtt[index]} >                       
+                                
+                         <i role="button" onClick={()=>removeGroupAtt(index)} style={{left:"80%", top: "20%", fontSize:"20px"}} className={"fa fa-times  text-danger float-right position-absolute" + classAtt[index]}/>
 
-                                  <select className="form-control form-control-modern" name="stockStatus">
-                                      <option value="percentage" selected>Percentage Discount</option>
-                                      <option value="fixed-cart">Fixed Cart Discount</option>
-                                      <option value="fixed-product">Fixed Product Discount</option>
-                                  </select>
+                       <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0 "  >Nhóm phân loại {index+1}</label>
+                       <div className="col-lg-7 col-xl-6">
+                             <div className="row mb-4">                                  
+                                 <label className="col-4 d-flex align-items-center">Tên nhóm phân loại:</label>                            
+                                 <div className="col-8">
 
-                                </div>                           
-                            </div>
+                                
+                                 <select  onChange={(event)=>changeAtt(event,index)} className="form-control form-control-modern" name="stockStatus" value={selectedAtt[index]}>
+                                      <option value="" disabled selected>Chọn nhóm phân loại</option>
+                                      {parentAttList[index].map((item,index)=>(
+                                          <option key={index} value={item.id}>{item.value}</option>                                           
+                                        
+                                        ))                                                
+                                      }
+                                 </select>
 
-                            <div className="row">
-                                  <label className="col-4 d-flex align-items-center">Phân loại hàng</label>                            
+                               </div> 
 
-                                  <div className="col-8">
-                                          <select className="form-control form-control-modern" name="stockStatus">
-                                                <option value="percentage" selected>Percentage Discount</option>
-                                                <option value="fixed-cart">Fixed Cart Discount</option>
-                                                <option value="fixed-product">Fixed Product Discount</option>
-                                          </select>
-                                  </div>                           
-                            </div>
+                                                   
+                           </div>
 
-               
-                          
-                        </div>
-                      </div>
+                           <div className="row">
+                                 <label className="col-4 d-flex align-items-center">Phân loại hàng</label>                            
 
-                      <div className={"form-group row align-items-center " + classAtt2} >
-                        <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0 "  >Nhóm phân loại 2</label>
-                        <div className="col-lg-7 col-xl-6">
-                              <div className="row mb-4">
-                                  <label className="col-4 d-flex align-items-center">Tên nhóm phân loại</label>                            
-                                  <div className="col-8">
+                                 <div className="col-8">  
 
-                                  <select className="form-control form-control-modern" name="stockStatus">
-                                      <option value="percentage" selected>Percentage Discount</option>
-                                      <option value="fixed-cart">Fixed Cart Discount</option>
-                                      <option value="fixed-product">Fixed Product Discount</option>
-                                  </select>
+                                    <Multiselect
+                                        className="form-control form-control-modern"
+                                        options={atributeList[index]} // Options to display in the dropdown
+                                        displayValue="value" // Property name to display in the dropdown options
+                                        placeholder="Chọn phân loại"
+                                    />                           
+                                        
+                                    {/* <select className="form-control form-control-modern" name="stockStatus">
+                                                {
+                                               
+                                               atributeList[index].map((item1,index1)=>(
+                                                <option key={index1} value={item1.id}>{item1.value}</option>                                                                                         
+                                              ))                                                
+                                            }
+                                          
+                                    </select> */}
+                                         
+                                        
+                                 </div>                           
+                           </div>
 
-                                </div>                           
-                            </div>
+              
+                         
+                       </div>
+                     </div>
 
-                            <div className="row">
-                                  <label className="col-4 d-flex align-items-center">Phân loại hàng</label>                            
+                      ))
 
-                                  <div className="col-8">
-                                          <select className="form-control form-control-modern" name="stockStatus">
-                                                <option value="percentage" selected>Percentage Discount</option>
-                                                <option value="fixed-cart">Fixed Cart Discount</option>
-                                                <option value="fixed-product">Fixed Product Discount</option>
-                                          </select>
-                                  </div>                           
-                            </div>
+                      }
+                      
 
-               
-                          
-                        </div>
-                      </div>
+                  
 
                       <div className="form-group row align-items-center">
                         <label className="col-lg-5 col-xl-3 control-label text-lg-start mb-0 ">Thêm nhóm phân loại</label>
@@ -230,6 +584,72 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
                           </div>
                       </div>
                     </div>
+
+                    {/* todo: Product Child Table----------------- */}
+                    <div className="card-body">
+
+                    <table className="table table-bordered table-striped mb-0" id="datatable-editable">
+        <thead>
+          <tr>
+            {childAttList.map((item, index)=>{
+              return(           <th>{item.name}</th>)
+            })}
+           
+            <th>Mã vạch</th>
+            <th>Giá bán</th>
+            <th>Giá gốc</th>
+            <th>SKU phân loại</th>
+            <th>SKU Số lượng tồn kho</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-item-id={1}>
+            {childAttList.map((item, index)=>{
+                return(           <td></td>)
+            })}
+
+            <td>
+            <input type="text" className="form-control input-block" defaultValue="Gecko" />
+            </td>
+            <td> 
+               <input type="text" className="form-control input-block" defaultValue="Gecko" />
+            </td>
+            <td className="actions">
+              <input type="text" className="form-control input-block" defaultValue="Gecko" />
+            </td>
+            <td className="actions">
+              <input type="text" className="form-control input-block" defaultValue="Gecko" />
+            </td>
+            <td className="actions">
+              <input type="text" className="form-control input-block" defaultValue="Gecko" />
+            </td>
+          </tr>       
+         
+        </tbody>
+      </table>
+        {/* <table className="table table-responsive-md table-hover mb-0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Màu sắc</th>
+              <th>Mã vạch</th>
+              <th>Giá bán</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>              
+              <td>              
+
+              </td>
+              <td><input type="text" className="form-control form-control-modern" name="sku" defaultValue="" required /></td>
+            </tr>
+        
+          </tbody>
+        </table> */}
+      </div>
+                    {/* !end: Product Child Table----------------- */}
+
                     <div className="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
                       <div className="form-group row align-items-center pb-3">
                         <label className="col-lg-5 col-xl-3 control-label text-lg-end mb-0">Giá sản phẩm</label>
@@ -419,4 +839,4 @@ const ProductDetailPage: FC<IProductDetailProps> = ({ title }) => {
   
 };
 
-export default ProductDetailPage;
+export default ProductCUPage;
